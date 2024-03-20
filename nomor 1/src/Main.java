@@ -16,5 +16,5 @@ public class Main {
 
         keranjang1.printHasil();
 
-        }
     }
+}
