@@ -1,42 +1,53 @@
-//import javax.management.PersistentMBean;
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.Date;
+
 public class Main {
     public static void main(String[] args) {
+        TravelAgent agent = new TravelAgent();
 
-        Toko mebel1 = new Toko();
-        mebel1.getGudangBarang().tambahBahan(Gudang.Bahan.KAYU, 20);
-        mebel1.getGudangBarang().tambahBahan(Gudang.Bahan.BAUT, 100);
-        mebel1.getGudangBarang().tambahBahan(Gudang.Bahan.CAT, 15);
+        Trip paris = new Trip("Paris", 15000000, "1-MAY-2024", TripType.FLIGHT, 2);
+        Trip newYork = new Trip("New York", 20000000, "15-MAY-2024", TripType.FLIGHT, 3);
+        Trip london = new Trip("London", 18000000, "22-APR-2024", TripType.HOTEL, 10);
+        Trip tokyo = new Trip("Tokyo", 8000000, "25-APR-2024", TripType.PACKAGE, 7);
+        agent.addTrip(paris);
+        agent.addTrip(newYork);
+        agent.addTrip(london);
+        agent.addTrip(tokyo);
+        agent.showAvailableTrip();
+        System.out.println("-----------------------------------------------------------------------------------------");
 
-        mebel1.getGudangBarang().buatBarang(Toko.TipeBarang.KURSI, 3);
-        mebel1.getGudangBarang().cekStokBahan();
+        Customer resti = new Customer("Resti", "Resti@gmail.com");
+        Customer hanif = new Customer("Hanif", "Hanif@gmail.com");
+        Customer aziz = new Customer("Aziz", "Aziz@gmail.com");
+        Customer revan = new Customer("Revan", "Revan@gmail.com");
 
-        mebel1.getGudangBarang().buatBarang(Toko.TipeBarang.KURSI, 5);
-        mebel1.getGudangBarang().buatBarang(Toko.TipeBarang.MEJA, 5);
+        agent.bookTrip(resti, paris);
+        agent.bookTrip(hanif, paris);
+        agent.bookTrip(revan, newYork);
+        agent.bookTrip(aziz, paris);
+        agent.bookTrip(aziz, newYork);
+        agent.bookTrip(aziz, newYork);
 
-        mebel1.getGudangBarang().tambahBahan(Gudang.Bahan.KAYU, 20);
-        mebel1.getGudangBarang().tambahBahan(Gudang.Bahan.BAUT, 100);
-        mebel1.getGudangBarang().tambahBahan(Gudang.Bahan.CAT, 15);
-        mebel1.getGudangBarang().cekStokBahan();
+        System.out.println("-----------------------------------------------------------------------------------------");
+        agent.showAvailableTrip();
+        System.out.println("-----------------------------------------------------------------------------------------");
 
-        mebel1.getGudangBarang().buatBarang(Toko.TipeBarang.KURSI, 5);
+        agent.cancelBooking(resti.getEmail(), paris);
+        agent.cancelBooking(hanif.getEmail(), paris);
+        agent.cancelBooking(aziz.getEmail(), paris);
+        System.out.println("-----------------------------------------------------------------------------------------");
+        agent.showAvailableTrip();
+        System.out.println("-----------------------------------------------------------------------------------------");
 
-        mebel1.getGudangBarang().cekIsiGudang();
-
-        Pembeli pembeli1 = new Pembeli("hanif", Toko.TipeBarang.KURSI, 10);
-        Pembeli pembeli2 = new Pembeli("muflih", Toko.TipeBarang.MEJA, 5);
-        Pembeli pembeli3 = new Pembeli("fabih", Toko.TipeBarang.LEMARI, 3);
-
-        mebel1.tambahAntrian(pembeli1);
-        mebel1.tambahAntrian(pembeli2);
-        mebel1.tambahAntrian(pembeli3);
-        mebel1.cekIsiAntrian();
-
-        mebel1.selesaikanAntrian();
-        mebel1.cekIsiAntrian();
-        mebel1.getGudangBarang().cekIsiGudang();
-
-
+        //OPSIONAL METHOD
+//        System.out.println("OUTPUT OPSIONAL");
+//        agent.getBookingsByCustomerEmail(resti.getEmail());
+//        agent.getBookingsByCustomerEmail(hanif.getEmail());
+//        agent.getBookingsByCustomerEmail(revan.getEmail());
+//        agent.getBookingsByCustomerEmail(aziz.getEmail());
+//        System.out.println("-----------------------------------------------------------------------------------------");
+//        agent.getAvailableTripsByType(TripType.FLIGHT);
+//        System.out.println("-----------------------------------------------------------------------------------------");
+//        agent.getAvailableTripsByDate("20-MAY-2024");
+//        agent.getAvailableTripsByDate("1-MAY-2024");
     }
 }
